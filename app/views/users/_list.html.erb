@@ -1,0 +1,22 @@
+<h2>User info</h2>
+<p>画像</p>
+  <%= image_tag 'no_image',  size: "100x100" %>
+<table>
+  <tr></tr>
+  <tr>
+    <th>name</th><th><%= @user.name %></th>
+  </tr>
+  <tr>
+    <th>introduction</th><th><%= @user.introduction %></th>
+  </tr>
+</table>
+
+
+
+  <li>
+ 
+  <a class = "btn btn-outline-secondary btn-block edit_user_163274", <%= link_to  edit_user_path(current_user.id), class: "nav-link text-light" do  %><i class="fa-solid fa-wrench"></i></a>
+  <%end%>
+  </li>
+
+
