@@ -11,11 +11,14 @@
   </tr>
 </table>
 
-<li>
-  <%= link_to edit_user_path(@user.id),class: "nav-link text-light" do  %>
-  <i class="fa-solid fa-user-gear"></i>
-  <%end%>
-</li>
+<!--ゲストユーザーがプロフィール編集画面を行えないようにする-->
+<% unless @user.guest_user? %>
+  <li>
+    <%= link_to edit_user_path(@user.id),class: "nav-link text-light" do  %>
+    <i class="fa-solid fa-user-gear"></i>
+    <% end %>
+  </li>
+<% end %>
 
 <h2>New book</h2>
 
