@@ -37,22 +37,14 @@
 
   </table>
 
- <div>
-  <p>コメント件数：<%= @book.post_comments.count %></p>
-  <% @book.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
-    <% if post_comment.user == current_user %>
-      <%= link_to "削除", book_post_comment_path(post_comment.book, post_comment), method: :delete %>
-    <% end %>
-  <% end %>
+
+<td>コメント件数:<span id="comment_count"><%= @book.post_comments.count %></span></td>
+
+<div id="post-comments">
+  <%= render "post_comments/comments" , { book: @book , post_comment: @post_comment } %><br>
 </div>
-<div>
-  <%= form_with model: [@book, @post_comment] do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
-  <% end %>
+<div id="comment-form">
+  <%= render "post_comments/form" , { book: @book , post_comment: @post_comment } %>
 </div>
 </div>
 </div>
