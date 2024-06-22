@@ -29,6 +29,22 @@
   <%= f.text_area :body %>
   <%= f.submit 'Create Book' %>
 
+  <!--評価表示部位-->
+<div id="stars">
+<label>Rate</label>
+</div>
+
+<script>
+  let elem = document.querySelector('#stars');
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    scoreName: 'book[star]'
+  };
+  window.raty(elem, opt);
+</script>
+
+
 
 
 <!--% books.each do |book| %>
