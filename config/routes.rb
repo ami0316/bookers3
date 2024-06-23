@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'contacts/new'
+  get 'contacts/confirm'
+  get 'contacts/done'
   devise_for :users
 
 
@@ -14,6 +17,15 @@ Rails.application.routes.draw do
     resource :favorite, only: [:create, :destroy]
     resources :post_comments, only: [:create, :destroy]
 end
+
+  resources :contacts, only: [:new, :create] do
+  collection do
+      post 'confirm'
+      post 'back'
+      get 'done'
+  end
+end
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   devise_scope :user do
