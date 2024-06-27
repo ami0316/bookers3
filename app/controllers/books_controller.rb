@@ -5,6 +5,7 @@ class BooksController < ApplicationController
     @books = Book.all
     @book = Book.new
     @user = current_user
+    
     if params[:latest]
      @books = Book.latest
     elsif params[:old]
@@ -69,8 +70,6 @@ class BooksController < ApplicationController
 
   private
   def book_params
-      params.require(:book).permit(:title, :body, :star)
+      params.require(:book).permit(:title, :body, :star, :tag_list)
   end
-
-
 end
