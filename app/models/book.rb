@@ -1,4 +1,5 @@
 class Book < ApplicationRecord
+  # attr_accessor クラス内で簡単にインスタンス変数の値を読み書きすることができる
   attr_accessor :tag_list
   after_save :tag_update
   after_find :to_tag_list
@@ -40,18 +41,24 @@ class Book < ApplicationRecord
   private
 
   def tag_update
+    # 削除した際に古いタグを取り出す記述
     old_tags = self.tags.pluck(:name)
+    # /[[:space:]]/が全角の際にはじいてくれて、split(",")カンマ区切りでuniqで重複しない記述(新しいタグの記述)
     tags = self.tag_list.gsub(/[[:space:]]/, "").split(",").uniq
-
+    
+    # タグをレコードする(レコードに含まれているものを探す)
     tags.each do |tag_name|
+      #タグ１つずつに対してあったら見つけてきてなかったら作ってね記述
       tag = Tag.find_or_create_by(name: tag_name)
       self.book_tags.find_or_create_by(tag_id: tag.id)
     end
-
+    
+    # 古いタグについての記述方法
     delete_tags = old_tags - tags
     delete_tags.each do |tag_name|
       tag = Tag.find_by(name: tag_name)
       book_tag = self.book_tags.find_by(tag_id: tag.id)
+      # 他にtagを誰か使っていないかの記述
       if tag.book_tags.size <= 1
         tag.destroy
       else
